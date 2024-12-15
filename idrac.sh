@@ -19,13 +19,29 @@ idrac_deploy() {
   _cca="$4"
   _cfullchain="$5"
 
-    Le_Deploy_idrac_user="$DEPLOY_IDRAC_USER"
+    Le_Deploy_idrac_user="${DEPLOY_IDRAC_USER:-$(_readdomainconf Le_Deploy_idrac_user)}"
+    if [ -z "$Le_Deploy_idrac_user" ]; then
+      Le_Deploy_idrac_user=""
+      _err "Please define env DEPLOY_IDRAC_USER first."
+      return 1
+    fi
     _savedomainconf Le_Deploy_idrac_user "$Le_Deploy_idrac_user"
-    Le_Deploy_idrac_pass="$DEPLOY_IDRAC_PASS"
-    _savedomainconf Le_Deploy_idrac_pass "$Le_Deploy_idrac_pass"
-    Le_Deploy_idrac_host="$DEPLOY_IDRAC_HOST"
-    _savedomainconf Le_Deploy_idrac_host "$Le_Deploy_idrac_host"
 
+    Le_Deploy_idrac_pass="${DEPLOY_IDRAC_PASS:-$(_readdomainconf Le_Deploy_idrac_pass)}"
+    if [ -z "$Le_Deploy_idrac_pass" ]; then
+      Le_Deploy_idrac_pass=""
+      _err "Please define env DEPLOY_IDRAC_PASS first."
+      return 1
+    fi
+    _savedomainconf Le_Deploy_idrac_pass "$Le_Deploy_idrac_pass"
+
+    Le_Deploy_idrac_host="${DEPLOY_IDRAC_HOST:-$(_readdomainconf Le_Deploy_idrac_host)}"
+    if [ -z "$Le_Deploy_idrac_host" ]; then
+      Le_Deploy_idrac_host=""
+      _err "Please define env DEPLOY_IDRAC_HOST first."
+      return 1
+    fi
+    _savedomainconf Le_Deploy_idrac_host "$Le_Deploy_idrac_host"
 
     ## I run this on MacOS, so I run racadm via Docker
     ## anywhere else it would just just be:
