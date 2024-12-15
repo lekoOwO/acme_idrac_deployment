@@ -1,4 +1,4 @@
-
+#!/usr/bin/bash
 # Usage:
 
 ## put this script in the deploy/ directory in the acme.sh root
